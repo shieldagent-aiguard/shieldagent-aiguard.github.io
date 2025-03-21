@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ShieldAgent: Shielding Agents via Verifiable Safety Policy Reasoning</title>
-    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico?v=1">
+    <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico?v=1">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap');
@@ -58,7 +59,7 @@
             color: #b088ff;
         }
         .main-content {
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
             padding: 30px 20px;
             text-align: center;
@@ -93,7 +94,7 @@
             font-weight: 300;
             letter-spacing: 0.5px;
             color: #e0e0e0;
-            max-width: 800px;
+            max-width: 1000px;
             margin: 20px auto 30px;
             line-height: 1.4;
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
@@ -146,7 +147,7 @@
 
         /* Overview Section Styles */
         .overview-section {
-            max-width: 1100px;
+            max-width: 1300px;
             margin: 5px auto;
             padding: 20px 30px;
             background: linear-gradient(135deg, rgba(40, 34, 70, 0.9), rgba(30, 25, 50, 0.95));
@@ -200,8 +201,8 @@
         .key-features {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin: 15px 0;
+            gap: 12px;
+            margin: 10px 0;
             max-width: 1000px;
             margin-left: auto;
             margin-right: auto;
@@ -210,10 +211,10 @@
         /* Enhanced feature box styling */
         .feature {
             background: rgba(0, 0, 0, 0.2);
-            padding: 20px;
+            padding: 15px;
             border-radius: 12px;
             transition: all 0.3s ease;
-            height: 100%;
+            height: auto;
             display: flex;
             flex-direction: column;
             align-items: flex-start;
@@ -232,23 +233,23 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .feature-logo {
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
             object-fit: contain;
             filter: brightness(1.1);
             margin-right: 2px;
-            margin-bottom: -6px;
+            margin-bottom: -2px;
         }
 
         .feature-text {
             font-size: 16px;
             font-weight: 600;
             color: #ffffff;
-            margin-bottom: 7px;
+            margin-bottom: 5px;
             font-family: 'Orbitron', sans-serif;
             line-height: 1.2;
             white-space: nowrap;
@@ -260,11 +261,15 @@
         }
 
         .feature p {
-            font-size: 14px;
-            line-height: 1.5;
+            font-size: 13px;
+            line-height: 1.4;
             color: rgba(255, 255, 255, 0.85);
-            margin: 0;
+            margin: 0 0 5px 0;
             font-family: 'Raleway', sans-serif;
+        }
+        
+        .feature p:last-child {
+            margin-bottom: 0;
         }
         
         .overview-label {
@@ -322,7 +327,7 @@
             font-family: 'Raleway', sans-serif;
             font-size: 16px;
             color: #cccccc;
-            max-width: 800px;
+            max-width: 1000px;
             margin: 20px auto;
             text-align: left;
             line-height: 1.6;
@@ -481,6 +486,23 @@
             transform: scale(1.02);
             box-shadow: 0 0 25px rgba(138, 79, 255, 0.3);
         }
+
+        /* Desktop styles for consistent feature box heights */
+        @media (min-width: 769px) {
+            .key-features {
+                align-items: stretch;
+            }
+            
+            .feature {
+                height: calc(100% - 30px); /* Account for padding */
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .feature-text {
+                margin-bottom: 8px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -491,11 +513,11 @@
                 <span>ShieldAgent</span>
             </div>
             <div class="nav-links">
-                <a href="#paper">Paper</a>
-                <a href="#code">Code</a>
-                <a href="#dataset">Dataset</a>
-                <a href="#architecture">Architecture</a>
+                <a href="#architecture">Overview</a>
+                <a href="https://github.com/BillChan226/ShieldAgent" target="_blank">Code</a>
+                <a href="#dataset">Benchmark</a>
                 <a href="#results">Results</a>
+                <a href="#bibtex">BibTeX</a>
             </div>
         </nav>
     </header>
@@ -521,7 +543,7 @@
 
         <div class="buttons">
             <button class="button" onclick="window.open('#', '_blank')">Read Paper</button>
-            <button class="button" onclick="window.open('#', '_blank')">GitHub Repo</button>
+            <button class="button" onclick="window.open('https://github.com/BillChan226/ShieldAgent', '_blank')">GitHub Repo</button>
             <button class="button" onclick="window.open('#', '_blank')">Dataset</button>
             <button class="button" onclick="window.open('#', '_blank')">Demo</button>
             <button class="button" onclick="window.open('#', '_blank')">Hugging Face</button>
@@ -539,21 +561,27 @@
                             <img src="images/logo.png" class="feature-logo" alt="ShieldAgent Logo">
                             <span class="feature-text" style="cursor: pointer;" onclick="scrollToSection('architecture')">Policy Model Construction</span>
                         </div>
-                        <p style="font-size: 13px;"><strong>Automatic Extraction:</strong> Parses policy documents and extracts verifiable rules</p>
-                        <p style="font-size: 13px;"><strong>Rule Refinement:</strong> Iteratively refines rules to ensure they can be concretely verified</p>
-                        <p style="font-size: 13px;"><strong>Action-Based Circuits:</strong> Organizes rules into probabilistic circuits for each agent action</p>
+                        <p><strong>Automatic Extraction:</strong> Parses policy documents and extracts verifiable rules</p>
+                        <p><strong>Rule Refinement:</strong> Iteratively refines rules to ensure they can be concretely verified</p>
+                        <p><strong>Action-Based Circuits:</strong> Organizes rules into probabilistic circuits for each agent action</p>
                     </div>
                     <div class="feature">
-                        <span class="feature-text" style="cursor: pointer;" onclick="scrollToSection('architecture')">Verification Pipeline</span>
-                        <p style="font-size: 13px;"><strong>Efficient Localization:</strong> Identifies relevant rule circuits for each action</p>
-                        <p style="font-size: 13px;"><strong>Formal Verification:</strong> Executes specialized tools to verify each policy rule</p>
-                        <p style="font-size: 13px;"><strong>Probabilistic Inference:</strong> Assigns safety labels and identifies rule violations</p>
+                        <div class="feature-header">
+                            <img src="images/logo.png" class="feature-logo" alt="ShieldAgent Logo">
+                            <span class="feature-text" style="cursor: pointer;" onclick="scrollToSection('architecture')">Verification Pipeline</span>
+                        </div>
+                        <p><strong>Efficient Localization:</strong> Identifies relevant rule circuits for each action</p>
+                        <p><strong>Formal Verification:</strong> Executes specialized tools to verify each policy rule</p>
+                        <p><strong>Probabilistic Inference:</strong> Assigns safety labels and identifies rule violations</p>
                     </div>
                     <div class="feature">
-                        <span class="feature-text" style="cursor: pointer;" onclick="scrollToSection('dataset')">ShieldAgent-Bench</span>
-                        <p style="font-size: 13px;"><strong>Comprehensive Coverage:</strong> 2K instructions across 7 risk categories and 6 web environments</p>
-                        <p style="font-size: 13px;"><strong>Attack Simulation:</strong> Risky trajectories generated under agent-based and environment-based attacks</p>
-                        <p style="font-size: 13px;"><strong>Explicit Risk Definition:</strong> Clear safety policies and violation mechanisms</p>
+                        <div class="feature-header">
+                            <img src="images/logo.png" class="feature-logo" alt="ShieldAgent Logo">
+                            <span class="feature-text" style="cursor: pointer;" onclick="scrollToSection('dataset')">ShieldAgent-Bench</span>
+                        </div>
+                        <p><strong>Comprehensive Coverage:</strong> 2K instructions across 7 risk categories and 6 web environments</p>
+                        <p><strong>Attack Simulation:</strong> Risky trajectories generated under agent-based and environment-based attacks</p>
+                        <p><strong>Explicit Risk Definition:</strong> Clear safety policies and violation mechanisms</p>
                     </div>
                 </div>
             </div>
@@ -572,11 +600,11 @@
 
         <!-- Dataset Section -->
         <div class="section" id="dataset">
-            <div class="centered-title">SA-Guard Dataset</div>
+            <div class="centered-title">ShieldAgent-Bench</div>
             <div class="image-container">
-                <img src="images/dataset.png" alt="SA-Guard Dataset" class="dataset-image">
+                <img src="images/dataset.png" alt="ShieldAgent-Bench Dataset" class="dataset-image">
                 <div class="caption">
-                    <b>SA-Guard Dataset:</b> The first comprehensive agent guardrail benchmark with 2K safety-related instructions across 7 risk categories and 6 web environments. Each instruction is paired with risky agent trajectories generated under two types of attacks, capturing risks during both training and deployment.
+                    <b>ShieldAgent-Bench:</b> The first comprehensive agent guardrail benchmark with 2K safety-related instructions across 7 risk categories and 6 web environments. Each instruction is paired with risky agent trajectories generated under two types of attacks, capturing risks during both training and deployment.
                 </div>
             </div>
         </div>
@@ -603,7 +631,7 @@
         </div>
 
         <!-- BibTeX section -->
-        <div class="bibtex-section">
+        <div class="bibtex-section" id="bibtex">
             <h2 style="font-family: 'Orbitron', sans-serif; color: #ffffff; margin-bottom: 20px; text-align: center;">BibTeX</h2>
             <pre><code>@article{chen2024shieldagent,
   title={ShieldAgent: Shielding Agents via Verifiable Safety Policy Reasoning},
