@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShieldAgent: Shielding Agents via Verifiable Safety Policy Reasoning</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #201a30;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #150d24;
+            padding: 10px 0;
+        }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .logo img {
+            height: 40px;
+            width: auto;
+            margin-right: 10px;
+            object-fit: contain;
+        }
+        .logo span {
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(to right, #8a4fff, #b088ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 20px;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #b088ff;
+        }
+        .main-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        .main-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .main-logo {
+            height: 100px;
+            width: auto;
+            margin-right: 20px;
+            object-fit: contain;
+        }
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 64px;
+            font-weight: 700;
+            margin: 0;
+            background: linear-gradient(to right, #8a4fff, #b088ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            color: #e0e0e0;
+            max-width: 800px;
+            margin: 20px auto 30px;
+            line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .authors {
+            font-family: 'Raleway', sans-serif;
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: 10px;
+            color: #e0e0e0;
+        }
+        .affiliations {
+            font-family: 'Raleway', sans-serif;
+            font-size: 16px;
+            font-weight: 300;
+            margin-bottom: 30px;
+            color: #b088ff;
+        }
+        sup {
+            font-size: 12px;
+            vertical-align: super;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+        .button {
+            background-color: #382d54;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+        .button:hover {
+            background-color: #4b3d72;
+            transform: translateY(-2px);
+        }
+        
+        /* Separator Styles */
+        .separator {
+            height: 2px;
+            background: linear-gradient(to right, #8a4fff, #b088ff);
+            margin: 60px 0;
+        }
+
+        /* Overview Section Styles */
+        .overview-section {
+            max-width: 1100px;
+            margin: 5px auto;
+            padding: 20px 30px;
+            background: linear-gradient(135deg, rgba(40, 34, 70, 0.9), rgba(30, 25, 50, 0.95));
+            border-radius: 20px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.07);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .overview-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(
+                    circle at top right,
+                    rgba(138, 79, 255, 0.08),
+                    transparent 40%
+                ),
+                radial-gradient(
+                    circle at bottom left,
+                    rgba(176, 136, 255, 0.08),
+                    transparent 40%
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .overview-content {
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
+        }
+
+        .highlight-text {
+            font-size: 15px;
+            color: #ffffff;
+            font-weight: 400;
+            margin-top: 5px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            text-align: left;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        .key-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 15px 0;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Enhanced feature box styling */
+        .feature {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+            border: 1px solid transparent;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border-color: rgba(138, 79, 255, 0.3);
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .feature-logo {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            filter: brightness(1.1);
+            margin-right: 2px;
+            margin-bottom: -6px;
+        }
+
+        .feature-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 7px;
+            font-family: 'Orbitron', sans-serif;
+            line-height: 1.2;
+            white-space: nowrap;
+            transition: color 0.3s ease;
+        }
+        
+        .feature-text:hover {
+            color: #b088ff;
+        }
+
+        .feature p {
+            font-size: 14px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.85);
+            margin: 0;
+            font-family: 'Raleway', sans-serif;
+        }
+        
+        .overview-label {
+            color: #ffffff;
+            font-weight: 700;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            padding-right: 4px;
+            font-size: 16px;
+        }
+
+        .highlight-text strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Centered Title */
+        .centered-title {
+            text-align: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px;
+            color: #ffffff;
+            margin: 0 0 10px;
+            padding-top: 5px;
+        }
+
+        /* System Architecture Section */
+        .section {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .image-container {
+            text-align: center;
+            margin: 20px auto;
+            max-width: 1400px;
+            padding: 0 20px;
+        }
+
+        .image-container img {
+            max-width: 85%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease;
+            object-fit: contain;
+        }
+        
+        .image-container:hover img {
+            transform: scale(1.02);
+        }
+
+        .caption {
+            font-family: 'Raleway', sans-serif;
+            font-size: 16px;
+            color: #cccccc;
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: left;
+            line-height: 1.6;
+        }
+        
+        /* Gradient text */
+        .gradient-text {
+            background: linear-gradient(45deg, #8a4fff, #b088ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 20px rgba(138, 79, 255, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+        
+        /* BibTeX styles */
+        .bibtex-section {
+            width: 100%;
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 2px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+        }
+
+        pre {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            color: #ffffff;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        /* Conference style */
+        .conference {
+            text-align: center;
+            margin: 20px 0 28px 0;
+            font-family: 'Google Sans', sans-serif;
+            font-size: 1.25em;
+            letter-spacing: 1.2px;
+        }
+
+        .conference span {
+            background: linear-gradient(120deg, #8a4fff, #b088ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 500;
+            padding: 6px 16px;
+            position: relative;
+        }
+
+        .conference span::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(138, 79, 255, 0.4), transparent);
+        }
+        
+        /* Results section */
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        .result-card {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .result-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .result-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: #e0e0e0;
+        }
+        
+        .result-image {
+            width: 100%;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 0 15px rgba(138, 79, 255, 0.1);
+            border: 1px solid rgba(138, 79, 255, 0.05);
+        }
+        
+        .result-card:hover .result-image {
+            transform: scale(1.03);
+            box-shadow: 0 0 20px rgba(138, 79, 255, 0.2);
+        }
+        
+        .result-description {
+            font-family: 'Raleway', sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
+            color: #cccccc;
+        }
+        
+        @media (max-width: 768px) {
+            .key-features,
+            .results-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .highlight-text {
+                font-size: 16px;
+            }
+            
+            .feature-text {
+                font-size: 16px;
+            }
+            
+            h1 {
+                font-size: 48px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+            
+            .image-container img {
+                max-width: 100%;
+            }
+        }
+
+        /* Dataset and Results styling */
+        .dataset-image {
+            max-width: 85%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(138, 79, 255, 0.15);
+            transition: transform 0.3s ease;
+            object-fit: contain;
+            border: 1px solid rgba(138, 79, 255, 0.1);
+        }
+        
+        .image-container:hover .dataset-image {
+            transform: scale(1.02);
+            box-shadow: 0 0 25px rgba(138, 79, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo.png" alt="ShieldAgent Logo">
+                <span>ShieldAgent</span>
+            </div>
+            <div class="nav-links">
+                <a href="#paper">Paper</a>
+                <a href="#code">Code</a>
+                <a href="#dataset">Dataset</a>
+                <a href="#architecture">Architecture</a>
+                <a href="#results">Results</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="main-title">
+            <img src="images/logo.png" alt="ShieldAgent Logo" class="main-logo">
+            <h1>ShieldAgent</h1>
+        </div>
+        <h2>Shielding Agents via Verifiable Safety Policy Reasoning</h2>
+        
+        <p class="authors">
+            Zhaorun Chen<sup>1</sup>, Mintong Kang<sup>2</sup>, Bo Li<sup>1,2</sup>
+        </p>
+
+        <div class="affiliations">
+            <p><sup>1</sup>University of Chicago, <sup>2</sup>University of Illinois at Urbana-Champaign</p
+        </div>
+
+        <!-- <div class="conference">
+            <span>ICML 2024</span>
+        </div> -->
+
+        <div class="buttons">
+            <button class="button" onclick="window.open('#', '_blank')">Read Paper</button>
+            <button class="button" onclick="window.open('#', '_blank')">GitHub Repo</button>
+            <button class="button" onclick="window.open('#', '_blank')">Dataset</button>
+            <button class="button" onclick="window.open('#', '_blank')">Demo</button>
+            <button class="button" onclick="window.open('#', '_blank')">Hugging Face</button>
+        </div>
+
+        <div class="overview-section">
+            <div class="overview-content">
+                <div class="highlight-text">
+                    <strong class="overview-label">Abstract:</strong> LLM-based autonomous agents have demonstrated wide adoption in various applications, leveraging their ability to access sensitive data and make autonomous decisions. However, they remain highly vulnerable to malicious instructions and attacks, which can result in severe consequences such as privacy breaches and financial losses. More critically, existing guardrails for LLMs are not applicable due to the complex and dynamic nature of agents. To tackle these challenges, we propose <strong>ShieldAgent</strong>, the first LLM-based guardrail agent designed to enforce explicit safety policy compliance of the action trajectory of other agents through logical reasoning. Specifically, ShieldAgent first constructs a safety policy model by extracting verifiable rules from policy documents and structuring them into a set of action-based probabilistic rule circuits. During inference, it retrieves relevant rule circuits based on the invoked action and generates a shielding plan, leveraging a comprehensive tool library and executable code for formal verification. Then it performs probabilistic inference to assign safety labels and report rule violations. Recognizing the lack of guardrail benchmarks for agents, we introduce <strong>SA-Guard</strong>, a dataset with 2K safety-related instructions across 7 risk categories and 6 web environments, each paired with risky trajectories generated under 2 SOTA attacks. Experiments show that ShieldAgent achieves SOTA on SA-Guard and existing benchmarks, outperforming prior methods by 11.3% on average with a high rule recall of 90.1%. Additionally, ShieldAgent reduces API queries by 64.7% and inference time by 58.2%, demonstrating its high precision and efficiency in safeguarding LLM agents.
+                </div>
+                
+                <div class="key-features">
+                    <div class="feature">
+                        <div class="feature-header">
+                            <img src="images/logo.png" class="feature-logo" alt="ShieldAgent Logo">
+                            <span class="feature-text" style="cursor: pointer;" onclick="scrollToSection('architecture')">Policy Model Construction</span>
+                        </div>
+                        <p style="font-size: 13px;"><strong>Automatic Extraction:</strong> Parses policy documents and extracts verifiable rules</p>
+                        <p style="font-size: 13px;"><strong>Rule Refinement:</strong> Iteratively refines rules to ensure they can be concretely verified</p>
+                        <p style="font-size: 13px;"><strong>Action-Based Circuits:</strong> Organizes rules into probabilistic circuits for each agent action</p>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-text" style="cursor: pointer;" onclick="scrollToSection('architecture')">Verification Pipeline</span>
+                        <p style="font-size: 13px;"><strong>Efficient Localization:</strong> Identifies relevant rule circuits for each action</p>
+                        <p style="font-size: 13px;"><strong>Formal Verification:</strong> Executes specialized tools to verify each policy rule</p>
+                        <p style="font-size: 13px;"><strong>Probabilistic Inference:</strong> Assigns safety labels and identifies rule violations</p>
+                    </div>
+                    <div class="feature">
+                        <span class="feature-text" style="cursor: pointer;" onclick="scrollToSection('dataset')">ShieldAgent-Bench</span>
+                        <p style="font-size: 13px;"><strong>Comprehensive Coverage:</strong> 2K instructions across 7 risk categories and 6 web environments</p>
+                        <p style="font-size: 13px;"><strong>Attack Simulation:</strong> Risky trajectories generated under agent-based and environment-based attacks</p>
+                        <p style="font-size: 13px;"><strong>Explicit Risk Definition:</strong> Clear safety policies and violation mechanisms</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Architecture Section -->
+        <div class="section" id="architecture">
+            <div class="centered-title">Overview of ShieldAgent</div>
+            <div class="image-container">
+                <img src="images/pipeline.png" alt="ShieldAgent Architecture" class="dataset-image">
+                <div class="caption">
+                    <b>Overview of ShieldAgent:</b> (Top) From government regulations or platform-wide policies, ShieldAgent first extracts verifiable rules and iteratively refines them to ensure each rule is accurate, concrete, and atomic. It then applies spectral clustering to assemble these rules into a robust action-based safety policy model, associating actions with their corresponding constraints (with weights learned from real or simulated data). (Bottom) During inference, ShieldAgent retrieves relevant rule circuits w.r.t. the invoked action and verifies the rules one by one. By referencing existing workflows from a hybrid memory module, it first generates a step-by-step shielding plan with operations supported by a rich tool library to assign truth values for all predicates, then produces executable code to formally verify each rule. Finally, ShieldAgent runs probabilistic inference within the rule circuits to provide a safety label and explanations and report any violated rules.
+                </div>
+            </div>
+        </div>
+
+        <!-- Dataset Section -->
+        <div class="section" id="dataset">
+            <div class="centered-title">SA-Guard Dataset</div>
+            <div class="image-container">
+                <img src="images/dataset.png" alt="SA-Guard Dataset" class="dataset-image">
+                <div class="caption">
+                    <b>SA-Guard Dataset:</b> The first comprehensive agent guardrail benchmark with 2K safety-related instructions across 7 risk categories and 6 web environments. Each instruction is paired with risky agent trajectories generated under two types of attacks, capturing risks during both training and deployment.
+                </div>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="section" id="results">
+            <div class="centered-title">Experimental Results</div>
+            <div class="results-grid">
+                <div class="result-card">
+                    <div class="result-title">Performance Comparison</div>
+                    <img src="images/results1.png" alt="Performance Comparison" class="result-image">
+                    <p class="result-description">
+                        ShieldAgent outperforms prior methods by 11.3% on SA-Guard and 9.4% on existing benchmarks, with high rule recall of 90.1%.
+                    </p>
+                </div>
+                <div class="result-card">
+                    <div class="result-title">Efficiency Gains</div>
+                    <img src="images/results2.png" alt="Efficiency Gains" class="result-image">
+                    <p class="result-description">
+                        ShieldAgent reduces API queries by 64.7% and inference time by 58.2%, providing significant computational savings while maintaining high accuracy.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- BibTeX section -->
+        <div class="bibtex-section">
+            <h2 style="font-family: 'Orbitron', sans-serif; color: #ffffff; margin-bottom: 20px; text-align: center;">BibTeX</h2>
+            <pre><code>@article{chen2024shieldagent,
+  title={ShieldAgent: Shielding Agents via Verifiable Safety Policy Reasoning},
+  author={Chen, Zhaorun and Kang, Mintong and Li, Bo},
+  journal={arXiv preprint arXiv:XXXX.XXXXX},
+  year={2024}
+}</code></pre>
+        </div>
+
+        <!-- Acknowledgment section -->
+        <div class="section">
+            <div class="centered-title" style="font-size: 20px;">Acknowledgment</div>
+            <div class="overview-section" style="margin-bottom: 60px; background: #1d1731; padding: 20px;">
+                <div class="overview-content">
+                    <p class="highlight-text" style="text-align: left; font-size: 14px; margin: 0;">
+                        This research was supported by [funding sources]. We thank [acknowledgments]. All content on this website is for research purposes only. If you have any questions or concerns, please contact us.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                const headerOffset = 80;
+                const elementPosition = section.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
+    </script>
+</body>
+</html>
