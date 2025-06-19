@@ -228,22 +228,23 @@
             border-color: rgba(138, 79, 255, 0.3);
         }
 
+        .feature-logo {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            filter: brightness(1.1);
+            margin-right: 8px;
+            margin-bottom: 0px;
+            flex-shrink: 0;
+        }
+
         .feature-header {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 0px;
             margin-bottom: 8px;
         }
         
-        .feature-logo {
-            width: 24px;
-            height: 24px;
-            object-fit: contain;
-            filter: brightness(1.1);
-            margin-right: 2px;
-            margin-bottom: -2px;
-        }
-
         .feature-text {
             font-size: 16px;
             font-weight: 600;
@@ -502,6 +503,140 @@
                 margin-bottom: 8px;
             }
         }
+
+        /* Video Demo Section Styles */
+        .demo-section {
+            max-width: 1400px;
+            margin: 50px auto;
+            padding: 0 20px;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .demo-card {
+            background: linear-gradient(135deg, rgba(40, 34, 70, 0.9), rgba(30, 25, 50, 0.95));
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .demo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(
+                    circle at top right,
+                    rgba(138, 79, 255, 0.08),
+                    transparent 40%
+                ),
+                radial-gradient(
+                    circle at bottom left,
+                    rgba(176, 136, 255, 0.08),
+                    transparent 40%
+                );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .demo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.4),
+                0 0 20px rgba(138, 79, 255, 0.2);
+        }
+
+        .demo-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .demo-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #ffffff;
+            text-align: center;
+            background: linear-gradient(45deg, #8a4fff, #b088ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .demo-video {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            border: 2px solid rgba(138, 79, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .demo-video:hover {
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+            border-color: rgba(138, 79, 255, 0.4);
+        }
+
+        .demo-description {
+            font-family: 'Raleway', sans-serif;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #e0e0e0;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .demo-tags {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+
+        .demo-tag {
+            background: rgba(138, 79, 255, 0.2);
+            color: #b088ff;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid rgba(138, 79, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .demo-tag:hover {
+            background: rgba(138, 79, 255, 0.3);
+            color: #ffffff;
+        }
+
+        @media (max-width: 768px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .demo-card {
+                padding: 20px;
+            }
+            
+            .demo-title {
+                font-size: 20px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -513,10 +648,11 @@
             </div>
             <div class="nav-links">
                 <a href="#paper">Paper</a>
-                <a href="#code">Code</a>
-                <a href="#dataset">Dataset</a>
-                <a href="#architecture">Architecture</a>
-                <a href="#results">Results</a>
+                <!-- <a href="#code">Code</a> -->
+                <!-- <a href="#dataset">Dataset</a> -->
+                <a href="#demos">Demos</a>
+                <a href="#architecture">Overview</a>
+                <!-- <a href="#results">Results</a> -->
             </div>
         </nav>
     </header>
@@ -542,10 +678,10 @@
 
         <div class="buttons">
             <button class="button" onclick="window.open('#', '_blank')">Read Paper</button>
-            <button class="button" onclick="window.open('https://github.com/BillChan226/ShieldAgent', '_blank')">GitHub Repo</button>
-            <button class="button" onclick="window.open('#', '_blank')">Dataset</button>
-            <button class="button" onclick="window.open('#', '_blank')">Demo</button>
-            <button class="button" onclick="window.open('#', '_blank')">Hugging Face</button>
+            <!-- <button class="button" onclick="window.open('https://github.com/BillChan226/ShieldAgent', '_blank')">GitHub Repo</button> -->
+            <!-- <button class="button" onclick="window.open('#', '_blank')">Dataset</button> -->
+            <button class="button" onclick="scrollToSection('demos')">Demo</button>
+            <!-- <button class="button" onclick="window.open('#', '_blank')">Hugging Face</button> -->
         </div>
 
         <div class="overview-section">
@@ -586,6 +722,47 @@
             </div>
         </div>
 
+        <!-- Live Demo Section -->
+        <div class="demo-section" id="demos">
+            <div class="centered-title">Live Demonstrations</div>
+            <div class="demo-grid">
+                <div class="demo-card">
+                    <div class="demo-content">
+                        <div class="demo-title">Email Security Demo</div>
+                        <video class="demo-video" controls preload="metadata">
+                            <source src="demo/shieldagent-demo-email.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <p class="demo-description">
+                            Watch ShieldAgent in action as it protects against malicious email-based attacks, preventing unauthorized access to sensitive information and blocking harmful actions.
+                        </p>
+                        <div class="demo-tags">
+                            <span class="demo-tag">Privacy Protection</span>
+                            <span class="demo-tag">Email Security</span>
+                            <span class="demo-tag">Real-time Blocking</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-card">
+                    <div class="demo-content">
+                        <div class="demo-title">Financial Safety Demo</div>
+                        <video class="demo-video" controls preload="metadata">
+                            <source src="demo/shieldagent-demo-financial.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        <p class="demo-description">
+                            See how ShieldAgent safeguards financial transactions and prevents unauthorized monetary operations, ensuring compliance with financial safety policies.
+                        </p>
+                        <div class="demo-tags">
+                            <span class="demo-tag">Financial Security</span>
+                            <span class="demo-tag">Transaction Safety</span>
+                            <span class="demo-tag">Policy Compliance</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Architecture Section -->
         <div class="section" id="architecture">
             <div class="centered-title">Overview of ShieldAgent</div>
@@ -609,7 +786,7 @@
         </div>
 
         <!-- Results Section -->
-        <div class="section" id="results">
+        <!-- <div class="section" id="results">
             <div class="centered-title">Experimental Results</div>
             <div class="results-grid">
                 <div class="result-card">
@@ -627,7 +804,7 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         <!-- BibTeX section -->
         <div class="bibtex-section">
@@ -641,7 +818,7 @@
         </div>
 
         <!-- Acknowledgment section -->
-        <div class="section">
+        <!-- <div class="section">
             <div class="centered-title" style="font-size: 20px;">Acknowledgment</div>
             <div class="overview-section" style="margin-bottom: 60px; background: #1d1731; padding: 20px;">
                 <div class="overview-content">
@@ -650,7 +827,7 @@
                     </p>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <script>
