@@ -365,6 +365,7 @@
             font-family: 'Roboto Mono', monospace;
             font-size: 14px;
             line-height: 1.5;
+            text-align: left;
         }
         
         /* Conference style */
@@ -680,7 +681,8 @@
             <button class="button" onclick="window.open('#', '_blank')">Read Paper</button>
             <!-- <button class="button" onclick="window.open('https://github.com/BillChan226/ShieldAgent', '_blank')">GitHub Repo</button> -->
             <!-- <button class="button" onclick="window.open('#', '_blank')">Dataset</button> -->
-            <button class="button" onclick="scrollToSection('demos')">Demo</button>
+            <button class="button" onclick="scrollToSection('demos')">Demo Videos</button>
+            <button class="button" onclick="showLiveDemoPopup()">Live Demo</button>
             <!-- <button class="button" onclick="window.open('#', '_blank')">Hugging Face</button> -->
         </div>
 
@@ -724,7 +726,7 @@
 
         <!-- Live Demo Section -->
         <div class="demo-section" id="demos">
-            <div class="centered-title">Live Demonstrations</div>
+            <div class="centered-title">Demo Videos</div>
             <div class="demo-grid">
                 <div class="demo-card">
                     <div class="demo-content">
@@ -809,11 +811,11 @@
         <!-- BibTeX section -->
         <div class="bibtex-section">
             <h2 style="font-family: 'Orbitron', sans-serif; color: #ffffff; margin-bottom: 20px; text-align: center;">BibTeX</h2>
-            <pre><code>@article{chen2024shieldagent,
-  title={ShieldAgent: Shielding Agents via Verifiable Safety Policy Reasoning},
-  author={Chen, Zhaorun and Kang, Mintong and Li, Bo},
-  journal={arXiv preprint arXiv:XXXX.XXXXX},
-  year={2024}
+            <pre><code>@article{chen2025shieldagent,
+    title={Shieldagent: Shielding agents via verifiable safety policy reasoning},
+    author={Chen, Zhaorun and Kang, Mintong and Li, Bo},
+    journal={arXiv preprint arXiv:2503.22738},
+    year={2025}
 }</code></pre>
         </div>
 
@@ -843,6 +845,10 @@
                     behavior: "smooth"
                 });
             }
+        }
+
+        function showLiveDemoPopup() {
+            alert("We are still working on the live demo platform and it will be available soon. Please check out our demo videos below to see ShieldAgent in action.");
         }
     </script>
 </body>
